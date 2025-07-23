@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Rymentz
+Copyright (c) 2025 Kaster Protocol Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+ADDITIONAL DISCLAIMER FOR BLOCKDAG PROTOCOLS:
+
+This software is a reference implementation of a message formatting protocol
+for blockDAG storage. The authors are not responsible for:
+
+- Content published by users via their blockDAG wallets
+- Actions taken by third-party wallet software (such as KasWare)
+- Permanent storage of data on decentralized blockDAG networks
+- Legal consequences of protocol usage by end users
+- Network fees, transaction failures, or blockDAG network operation
+
+Users are solely responsible for their compliance with applicable laws and
+regulations when using blockDAG technology and this protocol specification.

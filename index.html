@@ -1,0 +1,511 @@
+<!--
+================================================================================
+ Kaster Protocol - Reference Implementation
+ Version: v1.0.0
+================================================================================
+
+ DISCLAIMER:
+ This software is provided "as is", without warranty of any kind, express or
+ implied, including but not limited to the warranties of merchantability,
+ fitness for a particular purpose and noninfringement. In no event shall the
+ authors or copyright holders be liable for any claim, damages or other
+ liability, whether in an action of contract, tort or otherwise, arising from,
+ out of or in connection with the software or the use or other dealings in the
+ software.
+
+================================================================================
+
+ The MIT License (MIT)
+
+ Copyright (c) 2025 Kaster Protocol Contributors
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+================================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic meta tags for character set and viewport responsiveness -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" id="meta-description" content="Demonstration of the Kaster Protocol - A technical showcase of blockDAG-based messaging capabilities on the Kaspa network. Educational demo for developers and researchers.">
+    <meta name="keywords" id="meta-keywords" content="Kaster Protocol, demo, blockDAG messaging, Kaspa, decentralized communication, protocol demonstration, technical showcase, blockDAG technology">
+    <meta name="robots" content="index, follow, noarchive">
+    <meta name="language" content="en">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" id="og-title" content="Kaster Protocol Demo - BlockDAG Messaging Demonstration">
+    <meta property="og:description" id="og-description" content="Technical demonstration of the Kaster Protocol showcasing blockDAG-based messaging capabilities on the Kaspa network. Educational demo for developers.">
+    <meta property="og:site_name" content="Kaster Protocol Demo">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" id="twitter-title" content="Kaster Protocol Demo - BlockDAG Messaging Demonstration">
+    <meta name="twitter:description" id="twitter-description" content="Technical demonstration of blockDAG-based messaging protocol on Kaspa network. Educational demo for developers and researchers.">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#1a1a1b">
+    <meta name="msapplication-TileColor" content="#1a1a1b">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="">
+
+    <!--
+      Content Security Policy (CSP) to enhance security.
+      - default-src 'self': Allows content only from the site's own origin.
+      - script-src 'self': Allows scripts only from the site's own origin.
+      - style-src 'self': Allows stylesheets only from the site's own origin.
+      - connect-src 'self' https://api.kaspa.org: Allows connections to self and the Kaspa API.
+      - img-src 'self' data:: Allows images from self and data URIs (e.g., for embedded images).
+      - font-src 'self': Allows fonts only from the site's own origin.
+    -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                script-src 'self' 'unsafe-inline';
+                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                connect-src 'self' https://api.kaspa.org;
+                img-src 'self' data:;
+                font-src 'self' https://fonts.gstatic.com;">
+
+    <!-- Page Title and Favicon -->
+    <title id="page-title">Kaster Protocol Demo - BlockDAG Messaging Demonstration</title>
+    <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+
+    <!-- Google Fonts - Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to the main stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Immediate theme initialization to prevent FOUC (Flash of Unstyled Content) -->
+    <script>
+        // Apply saved theme immediately before page renders to prevent flash
+        (function() {
+            const savedTheme = localStorage.getItem('kaster_theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+</head>
+<body>
+
+    <!-- ================================================== -->
+    <!-- HEADER & NAVIGATION                              -->
+    <!-- Contains the logo, theme toggle, language selector, and wallet connection. -->
+    <!-- ================================================== -->
+    <header>
+        <nav class="container">
+            <!-- Logo and link to the homepage -->
+            <a href="/" class="logo"><img src="assets/logo.png" alt="Kaster Logo"><span data-i18n="misc.app_name">Kaster Protocol</span> <span class="demo-badge">demo</span></a>
+            
+            <!-- Right-aligned navigation items -->
+            <div class="nav-right">
+                <!-- Theme toggle button (light/dark mode) -->
+                <button id="theme-toggle" class="theme-toggle">🌙</button>
+                
+                <!-- Language selection dropdown -->
+                <div class="language-selector">
+                    <span class="language-flag">🌐</span>
+                    <select id="language-select">
+                        <option value="fr">Français</option>
+                        <option value="en" selected>English</option>
+                    </select>
+                </div>
+                
+                <!-- Wallet connection section -->
+                <div class="wallet-section">
+                    <!-- Button to connect the wallet -->
+                    <button id="connect-wallet-btn" class="button-primary" data-i18n="nav.connect_wallet">Connect Wallet</button>
+                    <!-- Container for wallet info, hidden by default -->
+                    <div id="wallet-info" class="d-none">
+                        <span id="wallet-address"></span>
+                        <span id="wallet-balance"></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Banner shown if the KasWare wallet extension is not detected -->
+    <div id="kasware-not-detected-banner" class="d-none">
+        <span data-i18n="status.kasware_not_detected">KasWare wallet not detected. Please install the</span>
+        <a href="https://www.kasware.xyz/" target="_blank" rel="noopener noreferrer" data-i18n="status.kasware_extension_link">extension</a>
+        <span data-i18n="status.kasware_to_interact">to interact with this interface.</span>
+    </div>
+
+    <!-- Main content area of the interface -->
+    <main>
+        <!-- ================================================== -->
+        <!-- INDEX PAGE (THREAD LIST)                         -->
+        <!-- This is the main view, showing a list of all discussions. -->
+        <!-- ================================================== -->
+        <div id="page-index">
+            <div class="container">
+                <!-- Header for the thread list page -->
+                <div class="main-header">
+                    <h1 data-i18n="index.title">Recent Discussions</h1>
+                    <div class="d-flex flex-gap-10">
+                        <button id="manage-filters-btn" class="button-secondary-small" data-i18n-title="filters.modal_title" data-i18n="filters.manage">🚫 Filters</button>
+                        <button id="refresh-btn" class="button-primary" data-i18n="nav.refresh">🔄 Refresh</button>
+                        <button id="create-thread-btn" class="button-primary" data-i18n="nav.create_thread">Create a discussion</button>
+                    </div>
+                </div>
+                
+                <!-- Filter controls for the thread list -->
+                <div class="filters">
+                    <select id="language-filter"><option value="all" data-i18n="index.filters.all_languages">All languages</option></select>
+                    <select id="theme-filter"><option value="all" data-i18n="index.filters.all_themes">All themes</option></select>
+                    <select id="sort-filter"><option value="recent" data-i18n="index.filters.recent">Most recent</option></select>
+                    <span id="threads-count"></span>
+                </div>
+
+                <!-- Status indicator for background tasks like checking for new replies -->
+                <div id="background-status" class="background-status d-none">
+                    <div class="status-icon">⏳</div>
+                    <span class="status-text" data-i18n="status.checking_replies">Checking for replies...</span>
+                    <span class="status-progress">0/0</span>
+                </div>
+
+                <!-- Container where the list of threads will be dynamically inserted -->
+                <div id="thread-list"></div>
+                
+                <!-- Pagination controls for navigating through pages of threads -->
+                <div id="pagination-container" class="d-flex flex-center-center flex-gap-10 margin-top-20">
+                    <div id="pagination-numbers" class="d-flex flex-gap-5"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================== -->
+        <!-- THREAD PAGE (SINGLE DISCUSSION VIEW)             -->
+        <!-- This view is shown when a user clicks on a specific thread. Hidden by default. -->
+        <!-- ================================================== -->
+        <div id="page-thread" class="d-none">
+             <div class="container">
+                <!-- Breadcrumb navigation -->
+                <nav class="breadcrumbs"><a href="/" data-i18n="thread.breadcrumb_home">Home</a> &gt; <span id="breadcrumb-current">Thread</span></nav>
+                
+                <!-- Loading placeholder shown while thread data is being fetched -->
+                <div id="loading-placeholder">
+                    <div class="loading-spinner"></div>
+                    <p data-i18n="thread.loading">Loading thread...</p>
+                </div>
+                
+                <!-- Main content of the thread, hidden until data is loaded -->
+                <div id="thread-main-content" class="d-none">
+                    <h1 id="thread-title"></h1>
+                    <!-- The original message of the thread -->
+                    <div class="message main-thread-message">
+                        <div class="message-metadata">
+                            <div class="metadata-line">
+                                <div class="author-info">
+                                    <span data-i18n="meta.by">By:</span> <strong id="thread-author-address"></strong>
+                                </div>
+                                <span id="thread-date"></span>
+                            </div>
+                            <div class="metadata-line"><span>TXID: <a id="thread-txid" href="#" target="_blank" rel="noopener noreferrer"></a></span></div>
+                        </div>
+                        <p id="thread-message-body" class="message-body"></p>
+                        <!-- Actions for the main thread message (hide, blacklist, donate) -->
+                        <div id="main-thread-actions" class="message-actions">
+                            <button data-action="hide" class="button-secondary-small" data-i18n="thread.actions.hide">Hide</button>
+                            <button data-action="blacklist" class="button-secondary-small" data-i18n="thread.actions.blacklist">Blacklist</button>
+                            <button data-action="donate" class="button-primary-small" data-i18n="thread.actions.donate">Donate</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Section for displaying replies to the thread -->
+                    <section id="replies-section">
+                        <div class="d-flex justify-between align-baseline margin-bottom-15">
+                            <h2 class="no-margin"><span data-i18n="thread.replies_title">Replies</span> <span id="replies-count">(0)</span></h2>
+                            <button id="refresh-thread-btn" class="button-primary" data-i18n="nav.refresh_thread">🔄 Refresh</button>
+                        </div>
+                        <div id="replies-container"></div>
+                    </section>
+                    
+                    <!-- Form for submitting a new reply, hidden if wallet is not connected -->
+                    <section id="reply-form-container" class="d-none">
+                        <h3 data-i18n="thread.reply_form_title">Reply</h3>
+                        <p class="margin-top-10 reply-fee-notice warning-box">
+                            <em data-i18n="warnings.blockDAG_storage">⚠️ All content is stored indefinitely and publicly on the blockDAG. Illegal terms, lies, and prohibited content are strictly forbidden.</em>
+                        </p>
+                        <p class="margin-top-10 reply-fee-notice">
+                            <em data-i18n="warnings.transaction_fees">💡 Transaction fees will go to the thread author.</em>
+                        </p>
+                        <form id="reply-form">
+                            <div class="form-group">
+                                <textarea id="reply-message" rows="4" data-i18n-placeholder="thread.reply_placeholder" placeholder="Write your reply..." required></textarea>
+                                <small id="reply-char-counter" class="char-counter">0/400 bytes</small>
+                            </div>
+                            <div class="d-flex flex-end margin-top-15">
+                                <button type="submit" id="submit-reply-btn" class="button-primary" data-i18n="thread.reply_submit">Publish</button>
+                            </div>
+                        </form>
+                    </section>
+                    
+                    <!-- Warning message shown if the user needs to connect their wallet to reply -->
+                    <div id="reply-warning" class="notice-box d-none">
+                        <p data-i18n="thread.reply_warning_csp">You must <a href="#" id="connect-wallet-link-in-warning">connect your wallet</a> to reply.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ================================================== -->
+    <!-- FLOATING ACTION BUTTONS (FABs)                     -->
+    <!-- Primarily for mobile view for quick access to common actions. -->
+    <!-- ================================================== -->
+    <button id="create-thread-btn-floating" title="Create a discussion" data-i18n-title="nav.create_thread">+</button>
+    <button id="refresh-btn-floating" title="Refresh" data-i18n-title="nav.refresh">🔄</button>
+
+    <!-- ================================================== -->
+    <!-- MODALS                                           -->
+    <!-- All modal dialogs are defined here and are hidden by default. -->
+    <!-- ================================================== -->
+
+    <!-- Modal for creating a new thread -->
+    <div id="newThreadModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 data-i18n="modal.new_thread.title">New Discussion</h2>
+            <p class="margin-top-10 reply-fee-notice warning-box-with-margin">
+                <em data-i18n="warnings.blockDAG_storage">⚠️ All content is stored indefinitely and publicly on the blockDAG. Illegal terms, lies, and prohibited content are strictly forbidden.</em>
+            </p>
+            <form id="new-thread-form">
+                <div class="form-group"><label for="thread-title-input" data-i18n="modal.new_thread.title_label">Title</label><input type="text" id="thread-title-input" required maxlength="40"><small id="title-char-counter" class="char-counter">0/40 bytes</small></div>
+                <div class="form-group"><label for="thread-message-input" data-i18n="modal.new_thread.message_label">Message</label><textarea id="thread-message-input" rows="5" required></textarea><small id="message-char-counter" class="char-counter">0/400 bytes</small></div>
+                <div class="form-group-inline">
+                    <div class="form-group"><label for="thread-theme-input" data-i18n="modal.new_thread.theme_label">Theme</label><select id="thread-theme-input" required><option value="General">General</option></select></div>
+                    <div class="form-group"><label for="thread-language-input" data-i18n="modal.new_thread.language_label">Language</label><select id="thread-language-input" required></select></div>
+                </div>
+                <div class="form-actions"><button type="button" id="cancel-thread-btn" class="button-secondary" data-i18n="modal.new_thread.cancel">Cancel</button><button type="submit" id="submit-thread-btn" class="button-primary" data-i18n="modal.new_thread.submit">Publish</button></div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal for managing content filters (unwanted terms) -->
+    <div id="termsManagementModal" class="modal">
+        <div class="modal-content terms-management-modal-content">
+            <span class="close">&times;</span>
+            <h2 data-i18n="filters.modal_title">🚫 Content Filter Management</h2>
+            <div class="form-group">
+                <label data-i18n="filters.add_label">Add a term to filter:</label>
+                <div class="flex-wrap-gap">
+                    <input type="text" id="new-filtered-term" data-i18n-placeholder="filters.input_placeholder" placeholder="Unwanted term..." maxlength="50" class="flex-input">
+                    <button id="add-filtered-term-btn" class="button-primary-small" data-i18n="filters.add_button">Add</button>
+                </div>
+                <p class="small-text margin-top-10">
+                    <span data-i18n="filters.help_text">💡 Add words or phrases you do not wish to see in the discussions.</span>
+                </p>
+            </div>
+            <div class="form-group">
+                <div class="flex-between-center">
+                    <label data-i18n="filters.current_terms">Currently filtered terms:</label>
+                    <div id="terms-stats" class="small-text">
+                        <span data-i18n="filters.loading">Loading...</span>
+                    </div>
+                </div>
+                <div id="filtered-terms-list" class="terms-list">
+                    <div class="loading-spinner"></div>
+                    <p data-i18n="filters.loading">Loading...</p>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button id="close-terms-modal-btn" class="button-secondary" data-i18n="filters.close_button">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Legal Consent Modal: This is a critical modal that users must agree to before using the tool. -->
+    <div id="legalConsentModal" class="modal d-none">
+        <div class="modal-content legal-consent-modal">
+            <!-- Language selector for the legal text -->
+            <div class="legal-language-selector">
+                <label data-i18n="legal.language_label">Language / Langue:</label>
+                <select id="legalLanguageSelect">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="fr">🇫🇷 Français</option>
+                </select>
+            </div>
+            
+            <h2 class="legal-title" data-i18n="legal.title">⚠️ Important Warning - Mandatory Consent</h2>
+            
+            <!-- Main content of the legal warning -->
+            <div class="legal-content">
+                <h3 class="legal-terms-title" data-i18n="legal.terms_title">📋 Kaster Terms of Use</h3>
+                
+                <p><strong data-i18n="legal.intro">By using this software interface, you acknowledge and accept that:</strong></p>
+                
+                <ul class="legal-list">
+                    <li><strong data-i18n="legal.permanent_storage">Permanent storage:</strong> <span data-i18n="legal.permanent_storage_desc">Any content you publish will be stored permanently and irreversibly on the Kaspa blockDAG.</span></li>
+                    <li><strong data-i18n="legal.public_visibility">Public visibility:</strong> <span data-i18n="legal.public_visibility_desc">Your publications will be publicly visible to anyone with access to the blockDAG.</span></li>
+                    <li><strong data-i18n="legal.no_deletion">Impossibility of deletion:</strong> <span data-i18n="legal.no_deletion_desc">It is technically impossible to modify or delete content once published.</span></li>
+                    <li><strong data-i18n="legal.personal_responsibility">Personal responsibility:</strong> <span data-i18n="legal.personal_responsibility_desc">You are solely responsible for the content you publish.</span></li>
+                </ul>
+                
+                <!-- Section detailing strictly forbidden content -->
+                <div class="legal-forbidden-section">
+                    <p><strong data-i18n="legal.forbidden_title">🚫 STRICTLY FORBIDDEN CONTENT:</strong></p>
+                    <p data-i18n="legal.forbidden_intro">You formally commit to NEVER use this protocol interface to publish content that is:</p>
+                    <ul class="legal-forbidden-list">
+                        <li data-i18n="legal.forbidden_illegal">Illegal under French, European or international laws</li>
+                        <li data-i18n="legal.forbidden_racist">Racist, anti-Semitic, xenophobic or discriminatory</li>
+                        <li data-i18n="legal.forbidden_hateful">Hateful, harassing or threatening towards others</li>
+                        <li data-i18n="legal.forbidden_defamatory">Defamatory, slanderous or damaging to reputation</li>
+                        <li data-i18n="legal.forbidden_porn">Pornographic or pedophilic in nature</li>
+                        <li data-i18n="legal.forbidden_violence">Inciting violence, terrorism or criminal activities</li>
+                        <li data-i18n="legal.forbidden_copyright">Violating copyright or intellectual property rights</li>
+                        <li data-i18n="legal.forbidden_spam">Constituting spam, scam or fraud</li>
+                    </ul>
+                </div>
+                
+                <!-- Section with the legal disclaimer -->
+                <div class="legal-disclaimer-section">
+                    <p><strong data-i18n="legal.disclaimer_title">⚖️ DISCLAIMER:</strong></p>
+                    <p data-i18n="legal.disclaimer_intro">The author of this software interface:</p>
+                    <ul class="legal-disclaimer-list">
+                        <li data-i18n="legal.disclaimer_not_responsible">Is in no way responsible for content published by users</li>
+                        <li data-i18n="legal.disclaimer_no_control">Exercises no control or moderation over publications</li>
+                        <li data-i18n="legal.disclaimer_as_is">Provides this tool "as is" without warranty</li>
+                        <li data-i18n="legal.disclaimer_no_consequences">Cannot be held responsible for the consequences of your use</li>
+                        <li data-i18n="legal.disclaimer_stop_service">Reserves the right to cease development and support for this tool at any time</li>
+                    </ul>
+                </div>
+                
+                <p class="legal-warning" data-i18n="legal.warning_consequences">
+                    ⚠️ Failure to comply with these conditions exposes you to legal prosecution and you assume full responsibility for legal consequences.
+                </p>
+            </div>
+            
+            <!-- Consent checkbox section -->
+            <div class="legal-consent-section">
+                <label class="legal-checkbox-label">
+                    <input type="checkbox" id="legalConsentCheckbox" class="legal-checkbox">
+                    <span data-i18n="legal.consent_text">I certify that I have read, understood and fully accepted the above conditions. I commit to respecting all listed prohibitions and acknowledge being solely responsible for my publications on the Kaspa blockDAG via this tool.</span>
+                </label>
+            </div>
+            
+            <!-- Buttons to accept or refuse the terms -->
+            <div class="legal-button-section">
+                <button id="refuseLegalConsent" class="button-secondary legal-refuse-button" data-i18n="legal.refuse_button">
+                    ❌ Refuse - Exit
+                </button>
+                <button id="acceptLegalConsent" class="button-primary legal-accept-button" disabled data-i18n="legal.accept_button">
+                    ✅ I accept and consent - Access the Interface
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- First Visit Warning Modal: Shows on first visit to warn about demo nature and age requirement -->
+    <div id="firstVisitModal" class="modal d-none">
+        <div class="modal-content legal-consent-modal">
+            <!-- Language selector for the warning text -->
+            <div class="legal-language-selector">
+                <label data-i18n="demo.language_label">Language / Langue:</label>
+                <select id="demoLanguageSelect">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="fr">🇫🇷 Français</option>
+                </select>
+            </div>
+            
+            <h2 class="legal-title" data-i18n="demo.title">⚠️ Demo Warning - Age Verification Required</h2>
+            
+            <!-- Main content of the demo warning -->
+            <div class="legal-content">
+                <h3 class="legal-terms-title" data-i18n="demo.demo_title">🚀 Kaster Protocol Demo</h3>
+                
+                <p><strong data-i18n="demo.intro">This is a demonstration interface for the Kaster Protocol. Please be aware that:</strong></p>
+                
+                <ul class="legal-list">
+                    <li><strong data-i18n="demo.demo_nature">Demo content:</strong> <span data-i18n="demo.demo_nature_desc">This platform contains user-generated content for demonstration purposes.</span></li>
+                    <li><strong data-i18n="demo.unmoderated">Unmoderated content:</strong> <span data-i18n="demo.unmoderated_desc">Content is not pre-moderated and may contain shocking, offensive, or inappropriate material.</span></li>
+                    <li><strong data-i18n="demo.technical">Technical demonstration:</strong> <span data-i18n="demo.technical_desc">This interface demonstrates blockDAG-based messaging capabilities.</span></li>
+                    <li><strong data-i18n="demo.responsibility">Your responsibility:</strong> <span data-i18n="demo.responsibility_desc">You are responsible for your own content consumption and interactions.</span></li>
+                </ul>
+                
+                <!-- Age verification section -->
+                <div class="legal-forbidden-section">
+                    <p><strong data-i18n="demo.age_title">🔞 AGE VERIFICATION REQUIRED:</strong></p>
+                    <p data-i18n="demo.age_intro">Access to this demonstration interface is restricted:</p>
+                    <ul class="legal-forbidden-list">
+                        <li data-i18n="demo.age_18">You must be at least 18 years old (or legal majority in your jurisdiction)</li>
+                        <li data-i18n="demo.age_content">You understand that content may include mature themes</li>
+                        <li data-i18n="demo.age_blockchain">You understand the permanent nature of blockDAG-stored content</li>
+                        <li data-i18n="demo.age_responsibility">You accept full responsibility for your participation</li>
+                    </ul>
+                </div>
+                
+                <!-- Demo disclaimer section -->
+                <div class="legal-disclaimer-section">
+                    <p><strong data-i18n="demo.disclaimer_title">💡 DEMONSTRATION DISCLAIMER:</strong></p>
+                    <ul class="legal-disclaimer-list">
+                        <li data-i18n="demo.disclaimer_testing">This is experimental software for testing purposes</li>
+                        <li data-i18n="demo.disclaimer_bugs">May contain bugs or unexpected behavior</li>
+                        <li data-i18n="demo.disclaimer_data">No guarantee of data persistence or service availability</li>
+                        <li data-i18n="demo.disclaimer_support">Limited support and documentation available</li>
+                    </ul>
+                </div>
+                
+                <p class="legal-warning" data-i18n="demo.warning_age">
+                    ⚠️ By proceeding, you confirm that you meet the age requirement and understand the nature of this demonstration.
+                </p>
+            </div>
+            
+            <!-- Age verification checkbox section -->
+            <div class="legal-consent-section">
+                <label class="legal-checkbox-label">
+                    <input type="checkbox" id="demoAgeCheckbox" class="legal-checkbox">
+                    <span data-i18n="demo.consent_text">I confirm that I am at least 18 years old (or of legal majority in my jurisdiction), I understand this is a demonstration of blockDAG technology, and I accept that content may be unmoderated and potentially shocking or offensive.</span>
+                </label>
+            </div>
+            
+            <!-- Buttons to accept or refuse the terms -->
+            <div class="legal-button-section">
+                <button id="refuseDemoAccess" class="button-secondary legal-refuse-button" data-i18n="demo.refuse_button">
+                    ❌ I'm under 18 / Refuse Access
+                </button>
+                <button id="acceptDemoAccess" class="button-primary legal-accept-button" disabled data-i18n="demo.accept_button">
+                    ✅ I'm 18+ and Accept - Enter Demo
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Global status bar for showing success/error messages -->
+    <div id="status-bar"></div>
+
+    <!-- ================================================== -->
+    <!-- JAVASCRIPT FILES                                 -->
+    <!-- Scripts are loaded at the end of the body for better performance. -->
+    <!-- ================================================== -->
+    <script src="js/translations.js"></script> <!-- Handles internationalization (i18n) -->
+    <script src="js/script.js"></script>       <!-- Main interface logic -->
+</body>
+</html>
