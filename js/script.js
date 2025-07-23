@@ -10,7 +10,7 @@
  *
  * 1.  i18n.js .................... Internationalization and language management.
  * 2.  kaster-db.js ............... IndexedDB wrapper for local data persistence.
- * 3.  kaster-api.js .............. API wrapper for interacting with the Kaspa blockchain.
+ * 3.  kaster-api.js .............. API wrapper for interacting with the Kaspa blockDAG.
  * 4.  Theme Management ........... Handles light and dark theme switching.
  * 5.  common.js .................. Shared UI logic, wallet connection, and modals.
  * 6.  Terms Management ........... UI logic for the content filtering modal.

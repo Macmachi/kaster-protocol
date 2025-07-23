@@ -5,7 +5,7 @@
 Before reporting content, please understand how the Kaster Protocol ecosystem works:
 
 - **Kaster Protocol**: Defines message formatting specifications only
-- **KasWare Wallet**: Users' wallets handle all blockchain transactions and write payloads to the Kaspa blockDAG
+- **KasWare Wallet**: Users' wallets handle all blockDAG transactions and write payloads to the Kaspa blockDAG
 - **Reference Interface**: This demonstration tool formats messages and provides local filtering
 - **Kaspa BlockDAG**: Decentralized ledger where content is permanently stored by users' wallets
 
@@ -22,7 +22,7 @@ Before reporting content, please understand how the Kaster Protocol ecosystem wo
 ### ❌ What This Project CANNOT Do
 - Remove content from the Kaspa blockDAG
 - Control what users publish through their KasWare wallets
-- Moderate decentralized blockchain content
+- Moderate decentralized blockDAG content
 - Take action against wallet addresses
 - Provide ongoing support or maintenance
 

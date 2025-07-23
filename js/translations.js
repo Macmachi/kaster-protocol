@@ -157,13 +157,13 @@ window.translations = {
         'misc.total': 'Total',
         
         // Meta tags SEO
-        'seo.meta_description': 'Démonstration du Protocole Kaster - Une vitrine technique des capacités de messagerie blockchain sur le réseau Kaspa. Démo éducative pour développeurs et chercheurs.',
-        'seo.meta_keywords': 'Protocole Kaster, demo, messagerie blockchain, Kaspa, communication décentralisée, démonstration protocole, vitrine technique, technologie blockchain',
-        'seo.page_title': 'Démo du Protocole Kaster - Démonstration de Messagerie Blockchain',
-        'seo.og_title': 'Démo du Protocole Kaster - Démonstration de Messagerie Blockchain',
-        'seo.og_description': 'Démonstration technique du Protocole Kaster présentant les capacités de messagerie blockchain sur le réseau Kaspa. Démo éducative pour développeurs.',
-        'seo.twitter_title': 'Démo du Protocole Kaster - Démonstration de Messagerie Blockchain',
-        'seo.twitter_description': 'Démonstration technique du protocole de messagerie blockchain sur le réseau Kaspa. Démo éducative pour développeurs et chercheurs.',
+        'seo.meta_description': 'Démonstration du Protocole Kaster - Une vitrine technique des capacités de messagerie blockDAG sur le réseau Kaspa. Démo éducative pour développeurs et chercheurs.',
+        'seo.meta_keywords': 'Protocole Kaster, demo, messagerie blockDAG, Kaspa, communication décentralisée, démonstration protocole, vitrine technique, technologie blockDAG',
+        'seo.page_title': 'Démo du Protocole Kaster - Démonstration de Messagerie BlockDAG',
+        'seo.og_title': 'Démo du Protocole Kaster - Démonstration de Messagerie BlockDAG',
+        'seo.og_description': 'Démonstration technique du Protocole Kaster présentant les capacités de messagerie blockDAG sur le réseau Kaspa. Démo éducative pour développeurs.',
+        'seo.twitter_title': 'Démo du Protocole Kaster - Démonstration de Messagerie BlockDAG',
+        'seo.twitter_description': 'Démonstration technique du protocole de messagerie blockDAG sur le réseau Kaspa. Démo éducative pour développeurs et chercheurs.',
         
         // Modale de consentement légal
         'legal.title': '⚠️ Conditions d\'Utilisation du Protocole Kaster', 
@@ -223,7 +223,7 @@ window.translations = {
         'demo.title': '⚠️ Avertissement Démo - Vérification d\'Âge Requise',
         'demo.demo_title': '🚀 Démo du Protocole Kaster',
         'demo.intro': 'Ceci est une interface de référence pour démontrer le Protocole Kaster qui permet d\'accéder au contenu stocké sur le blockDAG Kaspa. Veuillez noter que :',
-        'demo.demo_nature': 'Contenu blockchain :',
+        'demo.demo_nature': 'Contenu blockDAG :',
         'demo.demo_nature_desc': 'Cette interface démontre l\'accès aux messages générés par les participants au protocole Kaster.',
         'demo.unmoderated': 'Contenu non modéré :',
         'demo.unmoderated_desc': 'Les messages stockés sur le blockDAG ne sont pas pré-modérés et peuvent contenir du matériel choquant, offensant ou inapproprié.',
@@ -235,7 +235,7 @@ window.translations = {
         'demo.age_intro': 'L\'accès à cette interface de démonstration est restreint :',
         'demo.age_18': 'Vous devez avoir au moins 18 ans (ou la majorité légale dans votre juridiction)',
         'demo.age_content': 'Vous comprenez que le contenu du blockDAG peut inclure des thèmes matures',
-        'demo.age_blockchain': 'Vous comprenez la nature permanente et publique des messages sur le blockDAG Kaspa',
+        'demo.age_blockdag': 'Vous comprenez la nature permanente et publique des messages sur le blockDAG Kaspa',
         'demo.age_responsibility': 'Vous acceptez la pleine responsabilité de votre accès au contenu blockDAG',
         'demo.disclaimer_title': '💡 AVIS DE DÉMONSTRATION :',
         'demo.disclaimer_testing': 'Ceci est un logiciel expérimental pour démontrer l\'accès au protocole Kaster',
@@ -411,13 +411,13 @@ window.translations = {
         'misc.total': 'Total',
         
         // SEO Meta tags
-        'seo.meta_description': 'Demonstration of the Kaster Protocol - A technical showcase of blockchain-based messaging capabilities on the Kaspa network. Educational demo for developers and researchers.',
-        'seo.meta_keywords': 'Kaster Protocol, demo, blockchain messaging, Kaspa, decentralized communication, protocol demonstration, technical showcase, blockchain technology',
-        'seo.page_title': 'Kaster Protocol Demo - Blockchain Messaging Demonstration',
-        'seo.og_title': 'Kaster Protocol Demo - Blockchain Messaging Demonstration',
-        'seo.og_description': 'Technical demonstration of the Kaster Protocol showcasing blockchain-based messaging capabilities on the Kaspa network. Educational demo for developers.',
-        'seo.twitter_title': 'Kaster Protocol Demo - Blockchain Messaging Demonstration',
-        'seo.twitter_description': 'Technical demonstration of blockchain-based messaging protocol on Kaspa network. Educational demo for developers and researchers.',
+        'seo.meta_description': 'Demonstration of the Kaster Protocol - A technical showcase of blockDAG-based messaging capabilities on the Kaspa network. Educational demo for developers and researchers.',
+        'seo.meta_keywords': 'Kaster Protocol, demo, blockDAG messaging, Kaspa, decentralized communication, protocol demonstration, technical showcase, blockDAG technology',
+        'seo.page_title': 'Kaster Protocol Demo - BlockDAG Messaging Demonstration',
+        'seo.og_title': 'Kaster Protocol Demo - BlockDAG Messaging Demonstration',
+        'seo.og_description': 'Technical demonstration of the Kaster Protocol showcasing blockDAG-based messaging capabilities on the Kaspa network. Educational demo for developers.',
+        'seo.twitter_title': 'Kaster Protocol Demo - BlockDAG Messaging Demonstration',
+        'seo.twitter_description': 'Technical demonstration of blockDAG-based messaging protocol on Kaspa network. Educational demo for developers and researchers.',
         
         // Legal Consent Modal
         'legal.title': '⚠️ Kaster Protocol Terms of Use',
@@ -494,7 +494,7 @@ window.translations = {
         'demo.age_intro': 'Access to this demonstration interface is restricted:',
         'demo.age_18': 'You must be at least 18 years old (or legal majority in your jurisdiction)',
         'demo.age_content': 'You understand that blockDAG content may include mature themes',
-        'demo.age_blockchain': 'You understand the permanent and public nature of messages on the Kaspa blockDAG',
+        'demo.age_blockdag': 'You understand the permanent and public nature of messages on the Kaspa blockDAG',
         'demo.age_responsibility': 'You accept full responsibility for your access to blockDAG content',
         'demo.disclaimer_title': '💡 DEMONSTRATION NOTICE:',
         'demo.disclaimer_testing': 'This is experimental software to demonstrate Kaster protocol access',

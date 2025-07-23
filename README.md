@@ -2,6 +2,8 @@
 
 A decentralized messaging protocol for the Kaspa blockDAG with reference web interface.
 
+**🔗 Live Demo: [https://macmachi.github.io/kaster-protocol/](https://macmachi.github.io/kaster-protocol/)**
+
 ## ⚠️ Important Disclaimer
 
 This repository contains a **reference implementation** of the Kaster Protocol for **educational and demonstration purposes only**. This is not a production service or platform - it's a technical specification and example implementation.

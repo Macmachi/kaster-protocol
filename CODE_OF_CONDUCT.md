@@ -8,7 +8,7 @@ This repository contains a **reference interface** for the **Kaster Protocol**, 
 
 ### Clear Role Definition
 
-- **Kaster Protocol**: A technical specification that defines how to format messages for blockchain storage
+- **Kaster Protocol**: A technical specification that defines how to format messages for blockDAG storage
 - **KasWare Wallet Extension**: Handles all blockDAG transactions and writes the formatted payload to the Kaspa blockDAG
 - **Reference Interface**: A demonstration tool that formats messages according to the Kaster Protocol and interfaces with KasWare
 - **Kaspa BlockDAG**: The decentralized ledger where KasWare permanently stores the transaction payloads
@@ -89,7 +89,7 @@ This code of conduct applies to:
 **It does NOT apply** to:
 - Content users publish via their KasWare wallets
 - KasWare extension functionality
-- The Kaspa blockchain network
+- The Kaspa blockDAG network
 
 ## Enforcement
 
@@ -107,4 +107,4 @@ For questions about this code of conduct or this project, please open a GitHub i
 
 ---
 
-*This code of conduct is specific to this technical demonstration repository. The Kaster Protocol is a message formatting specification, and the actual blockchain transactions are handled by users' KasWare wallets independently.*
+*This code of conduct is specific to this technical demonstration repository. The Kaster Protocol is a message formatting specification, and the actual blockDAG transactions are handled by users' KasWare wallets independently.*
