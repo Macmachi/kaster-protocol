@@ -1068,7 +1068,7 @@
                 }
 
                 // Step 2: Retrieve author's transactions in an optimized way
-                const replies = await this.fetchOptimizedAuthorReplies(thread_info.sender_address, txid);
+                const replies = await this.fetchOptimizedAuthorReplies(thread_info.sender_address, thread_info.txid);
 
                 const allMessages = [thread_info, ...replies.sort((a, b) => new Date(a.block_time) - new Date(b.block_time))];
                 const result = {
@@ -1494,6 +1494,8 @@
                     // Close modal
                     modal.classList.add('modal-hidden');
                     modal.classList.remove('modal-visible');
+                    modal.classList.add('d-none'); // FIX: Ensure modal is completely hidden
+                    document.body.classList.remove('body-no-scroll');
 
                     // Proceed with connection
                     const state = window.currentState || { isConnected: false, userAddress: '' };
@@ -1507,6 +1509,7 @@
                 // Simply close modal without storing anything
                 modal.classList.add('modal-hidden');
                 modal.classList.remove('modal-visible');
+                modal.classList.add('d-none'); // FIX: Ensure modal is completely hidden
                 document.body.classList.remove('body-no-scroll');
 
                 // Display informative message
@@ -1564,6 +1567,7 @@
                 updateLegalModalTranslations();
 
                 modal.classList.remove('modal-hidden');
+                modal.classList.remove('d-none'); // Ensure d-none is removed
                 modal.classList.add('modal-visible', 'modal-fullscreen');
 
                 // Ensure checkbox is unchecked
@@ -1629,6 +1633,7 @@
                     // Close modal
                     modal.classList.add('modal-hidden');
                     modal.classList.remove('modal-visible');
+                    modal.classList.add('d-none'); // FIX: Ensure modal is completely hidden
 
                     console.log('✅ First visit accepted, user can continue');
                 }
@@ -1637,6 +1642,11 @@
             // Handle refusal
             refuseButton?.addEventListener('click', () => {
                 if (confirm(window.i18n ? window.i18n.t('confirm.exit_application') || 'Do you really want to exit the application?' : 'Do you really want to exit the application?')) {
+                    // Ensure modal is hidden before potentially closing window or redirecting
+                    modal.classList.add('modal-hidden');
+                    modal.classList.remove('modal-visible');
+                    modal.classList.add('d-none'); // FIX: Ensure modal is completely hidden
+
                     // Try to close the tab intelligently
                     if (window.opener || window.history.length === 1) {
                         window.close();
@@ -1698,6 +1708,7 @@
                 updateFirstVisitModalTranslations();
 
                 modal.classList.remove('modal-hidden');
+                modal.classList.remove('d-none'); // Ensure d-none is removed
                 modal.classList.add('modal-visible', 'modal-fullscreen');
 
                 // Ensure checkbox is unchecked
@@ -2264,12 +2275,9 @@
             const threadList = document.getElementById('thread-list');
             threadList.innerHTML = `<div class="loading-message"><div class="loading-spinner"></div><p>${window.i18n ? window.i18n.t('index.loading') : 'Loading discussions...'}</p></div>`;
 
-            // Mandatory KasWare check before accessing discussions
-            if (typeof window.kasware === 'undefined') {
-                console.log('❌ KasWare not detected - discussions access blocked');
-                threadList.innerHTML = `<div class="notice-box error">${window.i18n ? window.i18n.t('status.kasware_required_for_discussions') : 'The KasWare extension is required to access discussions. Please install it first.'}</div>`;
-                return;
-            }
+            // Removed: Mandatory KasWare check before accessing discussions
+            // Threads will now attempt to load regardless of KasWare presence.
+            // Functionalities requiring KasWare (like sending messages) will still be disabled/warned.
 
             try {
                 const threads = await window.kasterAPI.fetchThreads();
@@ -2306,7 +2314,8 @@
                 await renderThreads(state);
             } catch (error) {
                 console.error("Error loading threads:", error);
-                threadList.innerHTML = `<div class="notice-box error">${window.i18n ? window.i18n.t('index.error') : 'Could not load discussions. The Kaspa API may be temporarily unavailable.'}</div>`;
+                // Modified error message to reflect that Kasware is not the only reason for failure
+                threadList.innerHTML = `<div class="notice-box error">${window.i18n ? window.i18n.t('index.error') : 'Could not load discussions. The Kaspa API may be temporarily unavailable or an error occurred.'}</div>`;
             }
         }
 
@@ -3058,13 +3067,8 @@
             const mainContent = document.getElementById('thread-main-content');
             showLoadingState(true);
 
-            // Mandatory KasWare check before accessing thread
-            if (typeof window.kasware === 'undefined') {
-                console.log('❌ KasWare not detected - thread access blocked');
-                mainContent.innerHTML = `<h1>${window.i18n ? window.i18n.t('status.kasware_required_for_discussions') : 'The KasWare extension is required to access discussions. Please install it first.'}</h1>`;
-                showLoadingState(false);
-                return;
-            }
+            // Removed: Mandatory KasWare check before accessing thread
+            // Thread will now attempt to load regardless of KasWare presence.
 
             try {
                 const { messages, thread_info } = await window.kasterAPI.fetchThread(state.threadTxid);
@@ -3095,14 +3099,15 @@
                     filteredReplies.push(reply);
                 }
                 renderReplies(filteredReplies);
-                updateReplyFormState(state);
+                updateReplyFormState(state); // This will correctly disable reply if not connected
 
                 // Mark this thread as visited with the current number of replies
                 await markThreadAsVisited(state.threadTxid, state.replies.length);
 
             } catch (error) {
                 console.error("Error loading thread:", error);
-                mainContent.innerHTML = `<h1>${window.i18n ? window.i18n.t('error.loading_error') : 'Error loading thread.'}</h1>`;
+                // Modified error message
+                mainContent.innerHTML = `<h1>${window.i18n ? window.i18n.t('error.loading_error') : 'Error loading thread. The Kaspa API may be temporarily unavailable or an error occurred.'}</h1>`;
                 showStatus('error.loading_error', 'error');
             } finally {
                 showLoadingState(false);

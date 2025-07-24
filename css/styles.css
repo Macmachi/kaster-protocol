@@ -447,7 +447,7 @@ nav.container {
 
 .modal-content {
     background-color: var(--surface-color);
-    margin: 10% auto;
+    margin: 1% auto;
     padding: 30px;
     border: 1px solid var(--border-color);
     width: 90%;
